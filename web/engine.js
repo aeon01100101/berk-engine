@@ -292,6 +292,46 @@ function raycast(get, origin, dir, maxDist) {
   return null;
 }
 
+/* ---------------- survival: health / hunger / experience ---------------- */
+// Health and food are in half-units like Minecraft (20 = 10 hearts/shanks).
+function makeSurvival() {
+  return { health: 20, food: 20, sat: 5, xp: 0, level: 0, exh: 0, regenT: 0, starveT: 0 };
+}
+// Points needed to go from `level` to level+1 (vanilla formula).
+function xpNeed(level) { return level < 16 ? 2 * level + 7 : level < 31 ? 5 * level - 38 : 9 * level - 158; }
+function addXp(s, points) {
+  let ups = 0;
+  s.xp += points;
+  while (s.xp >= xpNeed(s.level)) { s.xp -= xpNeed(s.level); s.level++; ups++; }
+  return ups;
+}
+function fallDamage(dist) { return dist <= 3.5 ? 0 : Math.floor(dist - 3); }
+function hurtSurv(s, dmg) { if (dmg > 0) s.health = Math.max(0, s.health - dmg); return s.health <= 0; }
+function eatFood(s, amount, satAmt) {
+  s.food = Math.min(20, s.food + amount);
+  s.sat = Math.min(s.food, s.sat + (satAmt || 0));
+}
+// act: {moving, sprinting}. Hunger drains through saturation first; a full
+// belly (food >= 18) regenerates health; an empty one starves down to 1 hp.
+function tickSurvival(s, dt, act) {
+  if (s.health <= 0) return;
+  const rate = act.sprinting && act.moving ? 0.16 : act.moving ? 0.05 : 0.014;
+  s.exh += rate * dt;
+  while (s.exh >= 1) {
+    s.exh -= 1;
+    if (s.sat > 0) s.sat = Math.max(0, s.sat - 1);
+    else if (s.food > 0) s.food--;
+  }
+  if (s.food >= 18 && s.health < 20) {
+    s.regenT += dt;
+    if (s.regenT >= 0.6) { s.regenT = 0; s.health++; s.exh += 0.9; }
+  } else s.regenT = 0;
+  if (s.food <= 0 && s.health > 1) {
+    s.starveT += dt;
+    if (s.starveT >= 1.2) { s.starveT = 0; s.health--; }
+  } else s.starveT = 0;
+}
+
 /*__CORE_END__*/
 
 /*__ENT_BEGIN__*/
@@ -632,7 +672,69 @@ class World {
 
 /* ---------- player ---------- */
 function makePlayer() {
-  return { pos: new THREE.Vector3(8.5, 50, 8.5), vel: new THREE.Vector3(), yaw: 0, pitch: 0, fly: false, onGround: false };
+  return { pos: new THREE.Vector3(8.5, 50, 8.5), vel: new THREE.Vector3(), yaw: 0, pitch: 0, fly: false, onGround: false, surv: makeSurvival(), fallPeak: 0, dead: false };
+}
+
+/* ---------- survival wiring ---------- */
+let flashT = 0;
+function applyHurt(dmg, cause) {
+  if (!player || player.dead || dmg <= 0) return;
+  const died = hurtSurv(player.surv, dmg);
+  const fl = $('dmgflash');
+  fl.style.transition = 'none'; fl.style.opacity = '0.6';
+  requestAnimationFrame(() => { fl.style.transition = 'opacity .5s'; fl.style.opacity = '0'; });
+  renderSurv();
+  if (died) die(cause);
+}
+function gainXp(points) {
+  if (!player || player.dead) return;
+  const ups = addXp(player.surv, points);
+  if (ups > 0) flashHint(`⭐ Level up! You are now level ${player.surv.level}`);
+  renderSurv();
+}
+function die(cause) {
+  player.dead = true;
+  $('death-info').textContent = cause || '';
+  $('death').classList.remove('hidden');
+  if (document.exitPointerLock) document.exitPointerLock();
+  saveWorld();
+}
+function respawn() {
+  player.surv = makeSurvival();
+  player.dead = false;
+  player.fallPeak = 0;
+  player.vel.set(0, 0, 0);
+  const h = heightAt(8, 8, world.seed);
+  player.pos.set(8.5, h + 1.02, 8.5);
+  $('death').classList.add('hidden');
+  survKey = '';
+  renderSurv();
+}
+let eatCd = 0;
+function tryEat() {
+  if (!player || player.dead || eatCd > 0) return;
+  if (player.surv.food >= 20) { flashHint('You are full — hunger is maxed'); return; }
+  eatCd = 1.2;
+  eatFood(player.surv, 6, 3);
+  flashHint('You eat a dragon treat 🍖 (+3 hunger)');
+  renderSurv();
+}
+let survKey = '';
+function renderSurv() {
+  if (!player || !player.surv) return;
+  const s = player.surv;
+  const frac = s.xp / xpNeed(s.level);
+  const key = [s.health, s.food, s.level, Math.floor(frac * 182)].join('|');
+  if (key === survKey) return;
+  survKey = key;
+  let hh = '';
+  for (let i = 0; i < 10; i++) { const v = s.health - i * 2; hh += `<span class="mcico h${v >= 2 ? 'f' : v === 1 ? 'h' : 'e'}"></span>`; }
+  $('hearts').innerHTML = hh;
+  let ff = '';
+  for (let i = 0; i < 10; i++) { const v = s.food - i * 2; ff += `<span class="mcico f${v >= 2 ? 'f' : v === 1 ? 'h' : 'e'}"></span>`; }
+  $('foods').innerHTML = ff;
+  $('xpfill').style.width = (frac * 100).toFixed(1) + '%';
+  $('xplvl').textContent = s.level > 0 ? String(s.level) : '';
 }
 const P_HW = 0.3, P_H = 1.8, EYE = 1.62;
 function collides(px, py, pz) {
@@ -644,6 +746,7 @@ function collides(px, py, pz) {
   return false;
 }
 function movePlayer(dt) {
+  const wasGround = player.onGround;
   const speed = player.fly ? 14 : (keys['shiftdown'] ? 6.5 : 4.4);
   const sin = Math.sin(player.yaw), cos = Math.cos(player.yaw);
   let mx = 0, mz = 0;
@@ -676,6 +779,17 @@ function movePlayer(dt) {
     player.vel.y = 0;
   }
   if (p.y < 2) { p.y = 2; player.vel.y = 0; player.onGround = true; }
+  // fall tracking: remember the highest point of the fall, pay for it on landing
+  if (player.onGround) {
+    if (!wasGround && !player.fly && !player.dead) {
+      const dist = player.fallPeak - p.y;
+      const feetId = world.getBlock(Math.floor(p.x), Math.floor(p.y + 0.2), Math.floor(p.z));
+      const inWater = feetId && feetId === REG.byMc.get('minecraft:water');
+      const dmg = inWater ? 0 : fallDamage(dist);
+      if (dmg > 0) applyHurt(dmg, 'You fell from a high place');
+    }
+    player.fallPeak = p.y;
+  } else if (p.y > player.fallPeak) player.fallPeak = p.y;
 }
 
 /* ---------- interaction ---------- */
@@ -701,6 +815,7 @@ function breakBlock() {
   if (!hit) return;
   if (hit.y === 0) return; // bedrock floor stays
   world.setBlock(hit.x, hit.y, hit.z, 0);
+  gainXp(2); // mining pays experience
 }
 function placeBlock() {
   const hit = eyeRay();
@@ -765,7 +880,7 @@ function saveWorld() {
   if (!world || !player) return;
   const diffs = [];
   for (const [k, id] of world.diffs) { const p = k.split(',').map(Number); diffs.push([p[0], p[1], p[2], id]); }
-  const s = { app: 'berkweb', v: 1, seed: world.seed, diffs, player: [player.pos.x, player.pos.y, player.pos.z, player.yaw, player.pitch], hotbar,
+  const s = { app: 'berkweb', v: 1, seed: world.seed, diffs, player: [player.pos.x, player.pos.y, player.pos.z, player.yaw, player.pitch], hotbar, surv: player.surv,
     dragons: dragons.map((d) => ({ sp: d.core.sp, pos: d.core.pos, yaw: d.core.yaw, trust: d.core.trust, tamed: d.core.tamed, skin: d.core.skin })) };
   try { localStorage.setItem(saveKey(), JSON.stringify(s)); } catch (e) {}
 }
@@ -789,6 +904,7 @@ function startWorld(name, seedStr) {
   world = new World(seed);
   if (saved) for (const d of saved.diffs) world.diffs.set(d[0] + ',' + d[1] + ',' + d[2], d[3]);
   player = makePlayer();
+  if (saved && saved.surv) Object.assign(player.surv, saved.surv);
   if (saved && saved.player) {
     player.pos.set(saved.player[0], saved.player[1], saved.player[2]);
     player.yaw = saved.player[3] || 0; player.pitch = saved.player[4] || 0;
@@ -809,6 +925,8 @@ function startWorld(name, seedStr) {
   spawnDragons(saved && saved.dragons);
   playing = true; paused = false;
   $('title').classList.add('hidden'); $('hud').classList.remove('hidden'); $('pause').classList.add('hidden');
+  $('death').classList.add('hidden');
+  survKey = ''; renderSurv();
   requestAnimationFrame(tick);
 }
 
@@ -891,7 +1009,13 @@ function tick(t) {
   requestAnimationFrame(tick);
   const dt = Math.min(0.05, (t - lastT) / 1000 || 0.016);
   lastT = t;
-  if (!paused && !pickerOpen) { if (riding) driveRidden(dt); else movePlayer(dt); }
+  if (!paused && !pickerOpen && !player.dead) { if (riding) driveRidden(dt); else movePlayer(dt); }
+  if (!paused && !player.dead) {
+    const moving = !!(keys['w'] || keys['a'] || keys['s'] || keys['d']);
+    tickSurvival(player.surv, dt, { moving, sprinting: !!keys['shiftdown'] });
+    if (eatCd > 0) eatCd -= dt;
+    renderSurv();
+  }
   if (!paused) updateDragons(dt);
   const pcx = Math.floor(player.pos.x / CHUNK), pcz = Math.floor(player.pos.z / CHUNK);
   chunkT += dt;
@@ -922,7 +1046,8 @@ document.addEventListener('keydown', (e) => {
   if (k === 'r') toggleRide();
   if (k === 't' && !riding) offerTreat();
   if (k === 'c') cycleSkin();
-  if (k === 'b' || k === 'e') { pickerOpen ? closePicker() : openPicker(); }
+  if (k === 'e' && !riding) tryEat();
+  if (k === 'b') { pickerOpen ? closePicker() : openPicker(); }
   if (k === 'escape' && pickerOpen) closePicker();
 });
 document.addEventListener('keyup', (e) => {
@@ -945,6 +1070,7 @@ $('tab-blocks').addEventListener('click', () => { pickerTab = 'blocks'; renderPi
 $('tab-items').addEventListener('click', () => { pickerTab = 'items'; renderPicker(); });
 $('picker-close').addEventListener('click', closePicker);
 $('btn-resume').addEventListener('click', () => { paused = false; $('pause').classList.add('hidden'); });
+$('btn-respawn').addEventListener('click', () => respawn());
 $('btn-quit').addEventListener('click', () => { saveWorld(); location.reload(); });
 document.addEventListener('pointerlockchange', () => {
   if (!document.pointerLockElement && playing && !pickerOpen && !paused) {
@@ -1227,6 +1353,7 @@ function offerTreat() {
   const nowTamed = addTrust(d);
   if (nowTamed) {
     near.vis.label.draw(near.sp.name, true);
+    gainXp(10);
     flashHint(`♥ Tamed! The ${near.sp.name} trusts you now — press R to ride it`);
   } else {
     flashHint(`The ${near.sp.name} eats the treat… trust ${Math.round(d.trust * 100)}% (keep offering with T)`);

@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const src = fs.readFileSync(path.join(__dirname, '../web/engine.js'), 'utf8');
 const core = src.split('/*__CORE_BEGIN__*/')[1].split('/*__CORE_END__*/')[0];
-const api = new Function(core + `\nreturn { createRegistry, defOf, isFullCube, isOpaqueCube, isSolid, buildChunkArrays, makePalette, genChunkData, heightAt, raycast, tileRect, faceUV, CHUNK, WORLD_H, SEA };`)();
+const api = new Function(core + `\nreturn { createRegistry, defOf, isFullCube, isOpaqueCube, isSolid, buildChunkArrays, makePalette, genChunkData, heightAt, raycast, tileRect, faceUV, CHUNK, WORLD_H, SEA, makeSurvival, xpNeed, addXp, fallDamage, hurtSurv, eatFood, tickSurvival };`)();
 
 let PASS = 0, FAIL = 0;
 function check(name, cond, extra) {
@@ -78,6 +78,35 @@ check('belzium cube meshes', A.opaque.idx.length === 36);
   }
   check('grass top + side-overlay verts are tinted green', tintedVerts >= 8, tintedVerts);
   check('no § codes left in block names', !pack.blocks.some((b) => b.name.includes('§')));
+}
+// survival: health / hunger / experience (vanilla-shaped rules)
+{
+  const s = api.makeSurvival();
+  check('survival starts 20 hp / 20 food', s.health === 20 && s.food === 20);
+  check('xp curve matches vanilla early levels', api.xpNeed(0) === 7 && api.xpNeed(15) === 37 && api.xpNeed(16) === 42);
+  const ups = api.addXp(s, 7 + 9 + 11); // exactly levels 0,1,2 worth
+  check('addXp levels up and keeps the remainder', ups === 3 && s.level === 3 && s.xp === 0, `${ups}/${s.level}/${s.xp}`);
+  check('fall damage: safe <= 3.5, scales after', api.fallDamage(3.5) === 0 && api.fallDamage(4) === 1 && api.fallDamage(10) === 7 && api.fallDamage(23) === 20);
+  check('hurt floors at 0 and reports death', api.hurtSurv(s, 999) === true && s.health === 0);
+  const s2 = api.makeSurvival(); s2.food = 10;
+  api.eatFood(s2, 6, 3);
+  check('eating restores food + saturation, capped by food', s2.food === 16 && s2.sat === 8);
+  // hunger drain: standing still for 10 minutes drains some saturation/food
+  const s3 = api.makeSurvival();
+  for (let t = 0; t < 600; t += 0.05) api.tickSurvival(s3, 0.05, { moving: false, sprinting: false });
+  check('idle hunger drains over time', s3.food < 20 || s3.sat < 5, `food=${s3.food} sat=${s3.sat}`);
+  // sprinting drains much faster than idling
+  const s4 = api.makeSurvival();
+  for (let t = 0; t < 60; t += 0.05) api.tickSurvival(s4, 0.05, { moving: true, sprinting: true });
+  check('sprinting drains hunger fast', s4.food <= 17, `food=${s4.food} sat=${s4.sat}`);
+  // full belly regenerates health
+  const s5 = api.makeSurvival(); s5.health = 10;
+  for (let t = 0; t < 8; t += 0.05) api.tickSurvival(s5, 0.05, { moving: false, sprinting: false });
+  check('food >= 18 regenerates health', s5.health > 10, `hp=${s5.health}`);
+  // empty belly starves but never below 1 hp
+  const s6 = api.makeSurvival(); s6.food = 0; s6.sat = 0;
+  for (let t = 0; t < 120; t += 0.05) api.tickSurvival(s6, 0.05, { moving: false, sprinting: false });
+  check('starving drains to exactly 1 hp, no lower', s6.health === 1, `hp=${s6.health}`);
 }
 // water: transparent pass, self-culling
 const waterId = reg.byMc.get('minecraft:water');

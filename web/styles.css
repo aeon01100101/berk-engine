@@ -16,12 +16,28 @@ button.big{font-size:22px;padding:14px 34px}
 .foot{opacity:.65;font-size:13px;line-height:1.5}
 #pack-stats{color:#7ee787;font-size:14px}
 #hud{position:fixed;inset:0;pointer-events:none;z-index:5}
-#crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:24px;text-shadow:0 0 4px #000}
+#crosshair{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;background-image:url(pack/icons.png);background-size:512px 512px;background-position:0 0;image-rendering:pixelated;mix-blend-mode:difference}
+#dmgflash{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 42%,rgba(255,0,0,.5) 100%);opacity:0}
+#surbars{position:absolute;left:50%;bottom:66px;transform:translateX(-50%);width:364px}
+#xplvl{text-align:center;color:#7efc20;font-weight:bold;font-size:17px;line-height:18px;height:18px;text-shadow:1px 1px 0 #1a3d00,-1px 0 0 #1a3d00,0 1px 0 #1a3d00}
+#vitals{display:flex;justify-content:space-between;margin-bottom:3px}
+#hearts,#foods{display:flex}
+#foods{flex-direction:row-reverse}
+.mcico{width:18px;height:18px;background-image:url(pack/icons.png);background-size:512px 512px;image-rendering:pixelated;flex:none}
+.mcico.hf{background-position:-104px 0}
+.mcico.hh{background-position:-122px 0}
+.mcico.he{background-position:-32px 0}
+.mcico.ff{background-position:-104px -54px}
+.mcico.fh{background-position:-122px -54px}
+.mcico.fe{background-position:-32px -54px}
+#xpbar{height:10px;background-image:url(pack/icons.png);background-size:512px 512px;background-position:0 -128px;position:relative}
+#xpfill{height:100%;background-image:url(pack/icons.png);background-size:512px 512px;background-position:0 -138px}
+.died{color:#ff5555}
 #hotbar{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:4px;pointer-events:auto}
 .slot{width:48px;height:48px;background:rgba(20,28,44,.8);border:2px solid #44557a;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .slot.sel{border-color:#fff}
 .sprite{image-rendering:pixelated;background-repeat:no-repeat;flex:none}
-#selname{position:absolute;left:50%;bottom:70px;transform:translateX(-50%);font-size:17px;text-shadow:0 1px 3px #000}
+#selname{position:absolute;left:50%;bottom:122px;transform:translateX(-50%);font-size:17px;text-shadow:0 1px 3px #000}
 #hint{position:absolute;right:12px;bottom:12px;font-size:13px;opacity:.75;text-shadow:0 1px 3px #000}
 .picker-panel{max-width:900px;width:96%;max-height:92vh;display:flex;flex-direction:column}
 #picker-search{flex:1;min-width:200px;font-size:17px;padding:9px;border-radius:8px;border:0}

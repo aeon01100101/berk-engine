@@ -10,10 +10,24 @@
 <div id="game"></div>
 
 <div id="hud" class="hidden">
-  <div id="crosshair">+</div>
+  <div id="crosshair"></div>
+  <div id="dmgflash"></div>
+  <div id="surbars">
+    <div id="xplvl"></div>
+    <div id="vitals"><div id="hearts"></div><div id="foods"></div></div>
+    <div id="xpbar"><div id="xpfill"></div></div>
+  </div>
   <div id="hotbar"></div>
   <div id="selname"></div>
-  <div id="hint">B = blocks · F = fly · T = treat · R = ride · C = skin · Esc = pause</div>
+  <div id="hint">B = blocks · F = fly · T = treat · E = eat · R = ride · C = skin · Esc = pause</div>
+</div>
+
+<div id="death" class="screen hidden">
+  <div class="panel">
+    <h1 class="died">You died!</h1>
+    <p id="death-info"></p>
+    <div class="row"><button id="btn-respawn" class="primary big">Respawn</button></div>
+  </div>
 </div>
 
 <div id="title" class="screen">

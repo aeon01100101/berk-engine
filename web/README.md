@@ -25,9 +25,11 @@ click the world to grab the mouse.
 
 WASD move · Mouse look · Left click mine · Right click place · 1–9 / wheel
 select · Space jump · Shift sprint · **F** fly · **B** block picker
-(search all 8,718 blocks; Items tab is look-only) · **R** ride the nearest
-dragon / get off · Esc pause.
-Worlds auto-save into the browser's local storage.
+(search all 8,718 blocks; Items tab is look-only) · **T** offer a treat ·
+**E** eat a treat · **R** ride the nearest dragon / get off · **C** cycle a
+nearby dragon's skin · Esc pause.
+Worlds (including your health, hunger and XP) auto-save into the browser's
+local storage.
 
 ## Dragons (v0.3)
 
@@ -89,7 +91,14 @@ mod's own keyframed animations.
 
 ## Validation
 
-- Engine core: **26/26 Node tests** (meshing, face culling, slab height
+- **Survival (v0.4.0)**: the full Minecraft HUD — 10 hearts, 10 hunger
+  shanks, XP bar + level number — drawn from the vanilla `icons.png`
+  pulled out of the 1.18.2 client jar, with real rules behind it:
+  hunger drains (faster sprinting), a full belly regenerates health,
+  an empty one starves you to half a heart, falls hurt (3.5+ blocks,
+  water breaks them), mining and taming pay XP on the vanilla level
+  curve, **E** eats a treat, death shows a respawn screen.
+- Engine core: **36/36 Node tests** (meshing, face culling, slab height
   0.5, cross plants, water, raycast, deterministic terrain, biome tint).
 - **Real-browser play test (v0.3.1)**: driven in Chromium over CDP —
   title → Play → world renders with zero page errors, hotbar/picker work,

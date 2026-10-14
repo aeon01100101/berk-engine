@@ -97,6 +97,11 @@ try {
   const hotbar = await evalJs(`document.querySelectorAll('#hotbar .slot').length`);
   const selName = await evalJs(`document.querySelector('#selname').textContent`);
   console.log('hotbar slots:', hotbar, '| selected:', selName);
+  const hearts = await evalJs(`document.querySelectorAll('#hearts .mcico').length + '/' + document.querySelectorAll('#hearts .hf').length`);
+  const foods = await evalJs(`document.querySelectorAll('#foods .mcico').length + '/' + document.querySelectorAll('#foods .ff').length`);
+  const xpW = Math.round(await evalJs(`document.querySelector('#xpbar').getBoundingClientRect().width`));
+  console.log('hearts total/full:', hearts, '| hunger total/full:', foods, '| xp bar width:', xpW);
+  if (hearts !== '10/10' || foods !== '10/10') problems.push('SURVIVAL HUD wrong: hearts=' + hearts + ' foods=' + foods);
   // frame counter: prove the render loop is actually running
   const frames = await evalJs(`new Promise((res) => { let n = 0; const f = () => { n++; if (n < 90) requestAnimationFrame(f); else res(n); }; requestAnimationFrame(f); })`);
   console.log('rAF frames pumped:', frames);
