@@ -1,0 +1,392 @@
+{
+ "instance": "aeonplay-data/instances/claws-of-berk",
+ "stats": {
+  "modJars": 144,
+  "texturesInPack": 22433,
+  "blocksImported": 6694,
+  "itemsImported": 3454,
+  "recipesTotal": 4188,
+  "recipesWithImportedResult": 283,
+  "skipped": {
+   "shape:complex_elements": 1296,
+   "parent:tuskdisplay": 2,
+   "shape:slab": 61,
+   "shape:inner_stairs": 1,
+   "parent:dragoneyedisplay": 4,
+   "shape:angled_chain": 1,
+   "shape:angled_chain_flipped": 1,
+   "shape:boulder_egg_crate": 1,
+   "shape:template_fence_gate": 10,
+   "shape:mystery_egg_crate": 1,
+   "parent:thin_block": 6,
+   "shape:leaves": 9,
+   "shape:sharp_egg_crate": 1,
+   "shape:stoker_egg_crate": 1,
+   "shape:strike_egg_crate": 1,
+   "shape:tidal_egg_crate": 1,
+   "shape:tracker_egg_crate": 1,
+   "shape:button": 1,
+   "shape:pressure_plate_up": 13,
+   "shape:template_trapdoor_bottom": 96,
+   "shape:viking_bed_one": 1,
+   "shape:viking_bed_three": 1,
+   "shape:viking_bed_two": 1,
+   "shape:acacia_leaves_1": 1,
+   "shape:acacia_leaves_10": 1,
+   "shape:acacia_leaves_11": 1,
+   "shape:acacia_leaves_12": 1,
+   "shape:acacia_leaves_2": 1,
+   "shape:acacia_leaves_3": 1,
+   "shape:acacia_leaves_4": 1,
+   "shape:acacia_leaves_5": 1,
+   "shape:acacia_leaves_6": 1,
+   "shape:acacia_leaves_7": 1,
+   "shape:acacia_leaves_8": 1,
+   "shape:acacia_leaves_9": 1,
+   "texture_missing": 71,
+   "shape:birch_leaves_1": 1,
+   "shape:birch_leaves_10": 1,
+   "shape:birch_leaves_11": 1,
+   "shape:birch_leaves_12": 1,
+   "shape:birch_leaves_2": 1,
+   "shape:birch_leaves_3": 1,
+   "shape:birch_leaves_4": 1,
+   "shape:birch_leaves_5": 1,
+   "shape:birch_leaves_6": 1,
+   "shape:birch_leaves_7": 1,
+   "shape:birch_leaves_8": 1,
+   "shape:birch_leaves_9": 1,
+   "shape:carpet": 337,
+   "shape:dark_oak_leaves_1": 1,
+   "shape:dark_oak_leaves_10": 1,
+   "shape:dark_oak_leaves_11": 1,
+   "shape:dark_oak_leaves_12": 1,
+   "shape:dark_oak_leaves_2": 1,
+   "shape:dark_oak_leaves_3": 1,
+   "shape:dark_oak_leaves_4": 1,
+   "shape:dark_oak_leaves_5": 1,
+   "shape:dark_oak_leaves_6": 1,
+   "shape:dark_oak_leaves_7": 1,
+   "shape:dark_oak_leaves_8": 1,
+   "shape:dark_oak_leaves_9": 1,
+   "shape:jack_o_lantern_1": 1,
+   "shape:jack_o_lantern_10": 1,
+   "shape:jack_o_lantern_11": 1,
+   "shape:jack_o_lantern_12": 1,
+   "shape:jack_o_lantern_13": 1,
+   "shape:jack_o_lantern_14": 1,
+   "shape:jack_o_lantern_15": 1,
+   "shape:jack_o_lantern_16": 1,
+   "shape:jack_o_lantern_17": 1,
+   "shape:jack_o_lantern_18": 1,
+   "shape:jack_o_lantern_19": 1,
+   "shape:jack_o_lantern_2": 1,
+   "shape:jack_o_lantern_20": 1,
+   "shape:jack_o_lantern_21": 1,
+   "shape:jack_o_lantern_22": 1,
+   "shape:jack_o_lantern_3": 1,
+   "shape:jack_o_lantern_4": 1,
+   "shape:jack_o_lantern_5": 1,
+   "shape:jack_o_lantern_6": 1,
+   "shape:jack_o_lantern_7": 1,
+   "shape:jack_o_lantern_8": 1,
+   "shape:jack_o_lantern_9": 1,
+   "shape:jungle_leaves_1": 1,
+   "shape:jungle_leaves_10": 1,
+   "shape:jungle_leaves_11": 1,
+   "shape:jungle_leaves_12": 1,
+   "shape:jungle_leaves_2": 1,
+   "shape:jungle_leaves_3": 1,
+   "shape:jungle_leaves_4": 1,
+   "shape:jungle_leaves_5": 1,
+   "shape:jungle_leaves_6": 1,
+   "shape:jungle_leaves_7": 1,
+   "shape:jungle_leaves_8": 1,
+   "shape:jungle_leaves_9": 1,
+   "shape:template_lantern": 5,
+   "shape:oak_leaves_1": 1,
+   "shape:oak_leaves_10": 1,
+   "shape:oak_leaves_11": 1,
+   "shape:oak_leaves_12": 1,
+   "shape:oak_leaves_2": 1,
+   "shape:oak_leaves_3": 1,
+   "shape:oak_leaves_4": 1,
+   "shape:oak_leaves_5": 1,
+   "shape:oak_leaves_6": 1,
+   "shape:oak_leaves_7": 1,
+   "shape:oak_leaves_8": 1,
+   "shape:oak_leaves_9": 1,
+   "vanilla_or_missing_model": 5,
+   "shape:sea_lantern_1": 1,
+   "shape:sea_lantern_10": 1,
+   "shape:sea_lantern_11": 1,
+   "shape:sea_lantern_12": 1,
+   "shape:sea_lantern_13": 1,
+   "shape:sea_lantern_14": 1,
+   "shape:sea_lantern_15": 1,
+   "shape:sea_lantern_16": 1,
+   "shape:sea_lantern_2": 1,
+   "shape:sea_lantern_3": 1,
+   "shape:sea_lantern_4": 1,
+   "shape:sea_lantern_5": 1,
+   "shape:sea_lantern_6": 1,
+   "shape:sea_lantern_7": 1,
+   "shape:sea_lantern_8": 1,
+   "shape:sea_lantern_9": 1,
+   "shape:spruce_leaves_1": 1,
+   "shape:spruce_leaves_10": 1,
+   "shape:spruce_leaves_11": 1,
+   "shape:spruce_leaves_12": 1,
+   "shape:spruce_leaves_2": 1,
+   "shape:spruce_leaves_3": 1,
+   "shape:spruce_leaves_4": 1,
+   "shape:spruce_leaves_5": 1,
+   "shape:spruce_leaves_6": 1,
+   "shape:spruce_leaves_7": 1,
+   "shape:spruce_leaves_8": 1,
+   "shape:spruce_leaves_9": 1,
+   "shape:dragonfire_egg_crate": 1,
+   "shape:misc_egg_crate": 1,
+   "shape:nether_egg_crate": 1,
+   "no_face_texture": 129,
+   "blockstate_subpath": 293,
+   "parent:block": 14,
+   "shape:canvas_sign": 34,
+   "shape:cross": 2,
+   "parent:template_farmland_custom": 1,
+   "parent:default_box": 2,
+   "shape:egg_crate_divine_stepper": 1,
+   "shape:egg_crate_galechaser": 1,
+   "shape:egg_crate_seethinghowl": 1,
+   "shape:egg_crate_shadowsnatcher": 1,
+   "shape:egg_crate_shattered_spark": 1,
+   "shape:egg_crate_stalking_bloom": 1,
+   "shape:egg_crate_voidwalker": 1,
+   "shape:egg_crate_waverender": 1,
+   "shape:acacia_sign": 2,
+   "shape:template_orientable_trapdoor_bottom": 6,
+   "shape:template_anvil": 3,
+   "shape:azalea_leaves": 1,
+   "shape:bedrock": 1,
+   "shape:birch_sign": 2,
+   "shape:banner": 48,
+   "shape:bed": 16,
+   "shape:template_candle": 17,
+   "shape:chain": 1,
+   "shape:chain_command_block": 1,
+   "shape:chest": 8,
+   "shape:skull": 15,
+   "shape:crimson_sign": 2,
+   "shape:dark_oak_sign": 2,
+   "shape:dragon_egg": 1,
+   "shape:end_portal_frame": 1,
+   "shape:end_rod": 1,
+   "shape:ender_chest": 1,
+   "shape:flowering_azalea_leaves": 1,
+   "shape:jack_o_lantern": 1,
+   "shape:jungle_sign": 2,
+   "shape:lectern": 1,
+   "shape:lightning_rod": 1,
+   "shape:oak_sign": 2,
+   "shape:sea_lantern": 1,
+   "shape:spruce_sign": 2,
+   "shape:template_turtle_egg": 1,
+   "shape:warped_sign": 2,
+   "parent:ceiling_1": 16,
+   "shape:daub_cross_brace": 1,
+   "shape:daub_frame": 1,
+   "shape:hanging_sign_oak_loader": 1,
+   "parent:present_opened_template": 17,
+   "shape:pulley_block_chain": 1,
+   "parent:rope_chandelier": 3,
+   "shape:timber_frame": 2,
+   "parent:trapped_present_opened_template": 17,
+   "shape:wall_lantern_long": 1
+  }
+ },
+ "perMod": {
+  "alcocraft": {
+   "skipped": 16,
+   "items": 16
+  },
+  "alphasrise": {
+   "skipped": 9,
+   "blocks": 3,
+   "items": 19,
+   "block_items": 3
+  },
+  "archipelagoadditions": {
+   "skipped": 143,
+   "blocks": 18,
+   "items": 319,
+   "block_items": 18
+  },
+  "artifacts": {
+   "items": 37
+  },
+  "berk_furn_neoforge": {
+   "blocks": 18,
+   "skipped": 3,
+   "items": 51,
+   "block_items": 18
+  },
+  "carryon": {
+   "items": 2
+  },
+  "chipped": {
+   "skipped": 1275,
+   "blocks": 6238,
+   "items": 657,
+   "block_items": 6238
+  },
+  "dragon_eye": {
+   "skipped": 3
+  },
+  "dragon_fire": {
+   "blocks": 12,
+   "skipped": 1,
+   "items": 42,
+   "block_items": 12
+  },
+  "dragon_meal": {
+   "items": 2
+  },
+  "dragon_wars": {
+   "skipped": 2,
+   "items": 19
+  },
+  "dragons": {
+   "items": 7
+  },
+  "dred_dragons": {
+   "skipped": 2,
+   "items": 22
+  },
+  "dynamictrees": {
+   "skipped": 2
+  },
+  "easy_npc": {
+   "blocks": 1,
+   "items": 35,
+   "block_items": 1
+  },
+  "eatinganimation": {
+   "items": 120
+  },
+  "endersdelight": {
+   "items": 75
+  },
+  "fairylights": {
+   "skipped": 21,
+   "items": 30
+  },
+  "fantasyfurniture": {
+   "skipped": 1
+  },
+  "farmersdelight": {
+   "blocks": 21,
+   "skipped": 68,
+   "block_items": 21,
+   "items": 368
+  },
+  "geckolib3": {
+   "skipped": 2,
+   "items": 4
+  },
+  "hybridsplus": {
+   "skipped": 9,
+   "items": 19
+  },
+  "inferno": {
+   "blocks": 12,
+   "items": 125,
+   "block_items": 12
+  },
+  "iobaddons": {
+   "items": 2
+  },
+  "isleofberk": {
+   "blocks": 4,
+   "items": 45,
+   "block_items": 4
+  },
+  "isolatedjourney": {
+   "items": 7
+  },
+  "leafsvariants": {
+   "items": 4
+  },
+  "libraryferret": {
+   "blocks": 5,
+   "skipped": 5,
+   "items": 5,
+   "block_items": 5
+  },
+  "minecraft": {
+   "skipped": 570,
+   "blocks": 330,
+   "items": 538,
+   "block_items": 327
+  },
+  "mineraldelight": {
+   "items": 144
+  },
+  "nethersdelight": {
+   "items": 42
+  },
+  "oceansdelight": {
+   "items": 60
+  },
+  "off_the_grid": {
+   "items": 16
+  },
+  "offthegrid": {
+   "items": 14
+  },
+  "patchouli": {
+   "items": 9
+  },
+  "pettransfer": {
+   "items": 1
+  },
+  "serene_shrubbery": {
+   "skipped": 26,
+   "items": 26
+  },
+  "simplyswords": {
+   "items": 364
+  },
+  "snowrealmagic": {
+   "skipped": 7
+  },
+  "sophisticatedbackpacks": {
+   "skipped": 6,
+   "items": 50
+  },
+  "sophisticatedstorage": {
+   "skipped": 43,
+   "blocks": 1,
+   "items": 60,
+   "block_items": 1
+  },
+  "supplementaries": {
+   "skipped": 199,
+   "blocks": 31,
+   "items": 87,
+   "block_items": 31
+  },
+  "waystones": {
+   "skipped": 22,
+   "items": 6
+  },
+  "zipplestryke": {
+   "items": 5
+  }
+ },
+ "notImported": [
+  "mod Java code (behaviour, AI, GUIs, dimensions, quests) \u2014 cannot be auto-converted",
+  "non-cube block shapes (see stats.skipped by reason)",
+  "entities incl. dragons (471 entity textures exist in the pack; mobs need hand-written code)",
+  "shaderpacks (browser engine uses its own renderer)"
+ ]
+}

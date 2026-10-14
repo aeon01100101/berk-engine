@@ -1,0 +1,6 @@
+aeonplay-data/
+output/
+staging/
+importer/client-1.18.2.jar
+__pycache__/
+*.pyc

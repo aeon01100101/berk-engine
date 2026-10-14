@@ -1,0 +1,212 @@
+{
+ "format": 2,
+ "instance": "aeonplay-data/instances/claws-of-berk",
+ "stats": {
+  "modJars": 144,
+  "texturesInPack": 22433,
+  "blocksImported": 8718,
+  "itemsImported": 2556,
+  "recipesTotal": 4188,
+  "recipesWithImportedResult": 783,
+  "skipped": {
+   "no_geometry": 243,
+   "diag_elements": 79,
+   "texture_missing": 86,
+   "cross_no_texture": 4,
+   "blockstate_subpath": 293
+  }
+ },
+ "perMod": {
+  "alcocraft": {
+   "blocks": 16,
+   "items": 16,
+   "block_items": 1
+  },
+  "alphasrise": {
+   "skipped": 8,
+   "blocks": 4,
+   "items": 18,
+   "block_items": 4
+  },
+  "archipelagoadditions": {
+   "skipped": 25,
+   "blocks": 136,
+   "items": 309,
+   "block_items": 131
+  },
+  "artifacts": {
+   "items": 37
+  },
+  "berk_furn_neoforge": {
+   "blocks": 21,
+   "items": 48,
+   "block_items": 21
+  },
+  "carryon": {
+   "items": 2
+  },
+  "chipped": {
+   "blocks": 7405,
+   "skipped": 108,
+   "block_items": 7405,
+   "items": 15
+  },
+  "dragon_eye": {
+   "blocks": 3,
+   "block_items": 3
+  },
+  "dragon_fire": {
+   "blocks": 13,
+   "items": 42,
+   "block_items": 13
+  },
+  "dragon_meal": {
+   "items": 2
+  },
+  "dragon_wars": {
+   "blocks": 2,
+   "items": 19,
+   "block_items": 2
+  },
+  "dragons": {
+   "items": 7
+  },
+  "dred_dragons": {
+   "blocks": 2,
+   "items": 22,
+   "block_items": 2
+  },
+  "dynamictrees": {
+   "blocks": 2
+  },
+  "easy_npc": {
+   "blocks": 1,
+   "items": 35,
+   "block_items": 1
+  },
+  "eatinganimation": {
+   "items": 120
+  },
+  "endersdelight": {
+   "items": 75
+  },
+  "fairylights": {
+   "blocks": 15,
+   "skipped": 6,
+   "block_items": 14,
+   "items": 16
+  },
+  "fantasyfurniture": {
+   "blocks": 1,
+   "block_items": 1
+  },
+  "farmersdelight": {
+   "blocks": 55,
+   "skipped": 34,
+   "block_items": 50,
+   "items": 345
+  },
+  "geckolib3": {
+   "blocks": 2,
+   "block_items": 2,
+   "items": 4
+  },
+  "hybridsplus": {
+   "blocks": 9,
+   "items": 18,
+   "block_items": 9
+  },
+  "inferno": {
+   "blocks": 12,
+   "items": 125,
+   "block_items": 12
+  },
+  "iobaddons": {
+   "items": 2
+  },
+  "isleofberk": {
+   "blocks": 4,
+   "items": 45,
+   "block_items": 4
+  },
+  "isolatedjourney": {
+   "items": 7
+  },
+  "leafsvariants": {
+   "items": 4
+  },
+  "libraryferret": {
+   "blocks": 10,
+   "items": 5,
+   "block_items": 10
+  },
+  "minecraft": {
+   "blocks": 756,
+   "skipped": 145,
+   "items": 411,
+   "block_items": 684
+  },
+  "mineraldelight": {
+   "items": 144
+  },
+  "nethersdelight": {
+   "items": 42
+  },
+  "oceansdelight": {
+   "items": 60
+  },
+  "off_the_grid": {
+   "items": 16
+  },
+  "offthegrid": {
+   "items": 14
+  },
+  "patchouli": {
+   "items": 9
+  },
+  "pettransfer": {
+   "items": 1
+  },
+  "serene_shrubbery": {
+   "blocks": 26,
+   "block_items": 26
+  },
+  "simplyswords": {
+   "items": 364
+  },
+  "snowrealmagic": {
+   "blocks": 5,
+   "skipped": 2
+  },
+  "sophisticatedbackpacks": {
+   "skipped": 6,
+   "items": 50
+  },
+  "sophisticatedstorage": {
+   "skipped": 42,
+   "blocks": 2,
+   "items": 60,
+   "block_items": 2
+  },
+  "supplementaries": {
+   "blocks": 194,
+   "skipped": 36,
+   "items": 36,
+   "block_items": 172
+  },
+  "waystones": {
+   "blocks": 22,
+   "items": 6,
+   "block_items": 22
+  },
+  "zipplestryke": {
+   "items": 5
+  }
+ },
+ "notImported": [
+  "mod Java code (behaviour, AI, GUIs, dimensions, quests) \u2014 cannot be auto-converted",
+  "non-cube block shapes (see stats.skipped by reason)",
+  "entities incl. dragons (471 entity textures exist in the pack; mobs need hand-written code)",
+  "shaderpacks (browser engine uses its own renderer)"
+ ]
+}

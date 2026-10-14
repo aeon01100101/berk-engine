@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Berk Engine — Claws of Berk in a Browser</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="game"></div>
+
+<div id="hud" class="hidden">
+  <div id="crosshair">+</div>
+  <div id="hotbar"></div>
+  <div id="selname"></div>
+  <div id="hint">B = blocks · F = fly · T = treat · R = ride · C = skin · Esc = pause</div>
+</div>
+
+<div id="title" class="screen">
+  <div class="panel">
+    <div class="logo">🐉</div>
+    <h1>Berk Engine</h1>
+    <p class="sub">Claws of Berk, imported into a brand-new browser engine.<br>
+    Not Minecraft — the pack's blocks, textures and names, running on new code.</p>
+    <p id="pack-stats">Pack loads when you press Play.</p>
+    <label>World name <input id="world-name" maxlength="40" placeholder="Berk"></label>
+    <label>Seed <input id="world-seed" maxlength="20" placeholder="(random)"></label>
+    <div class="row"><button id="btn-play" class="primary big">▶ Play</button></div>
+    <p class="foot">WASD move · mouse look · left click mine · right click place · 1–9 / wheel select · Space jump · F fly · B picker</p>
+  </div>
+</div>
+<div id="title-body" class="hidden"></div>
+
+<div id="pause" class="screen hidden">
+  <div class="panel">
+    <h2>Paused</h2>
+    <div class="col">
+      <button id="btn-resume" class="primary">Back to game</button>
+      <button id="btn-quit">Save &amp; quit to title</button>
+    </div>
+    <p class="foot">World auto-saves to this browser.</p>
+  </div>
+</div>
+
+<div id="picker" class="screen hidden">
+  <div class="panel picker-panel">
+    <h2>Pick a block</h2>
+    <div class="row">
+      <button id="tab-blocks">Blocks</button>
+      <button id="tab-items">Items (look only)</button>
+      <input id="picker-search" placeholder="Search… try 'dragon', 'stairs', 'belzium'">
+      <button id="picker-close" class="primary">Done (B)</button>
+    </div>
+    <p id="picker-count"></p>
+    <div id="picker-grid"></div>
+  </div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script src="engine.js"></script>
+</body>
+</html>
